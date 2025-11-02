@@ -1,0 +1,48 @@
+.widget {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.widgetHeader {
+    align-items: center;
+    display: flex;
+    gap: 14px;
+}
+
+.widgetHeader p {
+    color: #A5A1A1;
+}
+
+.widgetMain {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.widgetMain div {
+    position: absolute;
+    text-align: center;
+}
+
+.widgetBG {
+    position: absolute;
+    width: 140px;
+}
+
+.widgetMain h3 {
+    font-size: 24px;
+}
+
+.widgetMain p {
+    font-size: 14px;
+}
+
+.widgetCompass {
+    margin: 0 auto;
+    width: 110px;
+}

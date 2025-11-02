@@ -1,0 +1,28 @@
+* {
+    color: #fff;
+    font-family: "Inter", sans-serif;
+}
+
+.Main {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 25px;
+
+    padding: 40px;
+
+    width: 100vw;
+    height: 100vh;
+    background-image: url("./../assets/images/cloudy_bg.jpg");
+}
+
+.upper-widgets {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 25px;
+}
+
+.lower-widgets {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    column-gap: 25px;
+}

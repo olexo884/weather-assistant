@@ -1,0 +1,27 @@
+.infoHeader {
+    display: flex;
+    cursor: pointer;
+    gap: 10px;
+    align-items: center;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    gap: 45px;
+}
+
+
+.MainInfo h3 {
+    font-size: 32px;
+    margin: 30px 0 15px 0;
+}
+
+.MainInfo h1 {
+    font-size: 128px;
+}
+
+.MainInfo p {
+    font-size: 18px;
+}
+
