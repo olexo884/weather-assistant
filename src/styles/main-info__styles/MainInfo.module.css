@@ -1,7 +1,7 @@
 .infoHeader {
     display: flex;
     cursor: pointer;
-    gap: 10px;
+    gap: 15px;
     align-items: center;
 }
 
@@ -11,10 +11,9 @@
     gap: 45px;
 }
 
-
 .MainInfo h3 {
     font-size: 32px;
-    margin: 30px 0 15px 0;
+    margin: 20px 0 10px 0;
 }
 
 .MainInfo h1 {

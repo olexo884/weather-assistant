@@ -32,7 +32,7 @@ const Forecast: React.FC = () => {
             </div>
             <div className={styles.graph}>
                 <LineChart className={styles.chart}
-                    style={{ width: '100%', height: '100%', maxHeight: '250px' }}
+                    style={{ width: '100%', height: '100%', maxHeight: '160px' }}
                     responsive
                     data={weatherData}
                     margin={{
