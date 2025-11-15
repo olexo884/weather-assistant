@@ -31,7 +31,7 @@
 
 .widgetBG {
     position: absolute;
-    width: 140px;
+    width: 120px;
 }
 
 .widgetMain h3 {
@@ -44,5 +44,6 @@
 
 .widgetCompass {
     margin: 0 auto;
-    width: 110px;
+    width: 100px;
+    margin: 8px 0;
 }
