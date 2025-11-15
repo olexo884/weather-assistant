@@ -1,7 +1,8 @@
 export interface MainInfoProps {
-    temperature: string;
-    exactDate: string;
-    weatherConditions: string;
-    location: string;
-    weatherIconCode: string;
+    temperature?: number;
+    exactDate?: number;
+    weatherConditions?: string;
+    location?: string;
+    weatherIconCode?: string;
+    units?: 'metric' | 'imperial';
 }
