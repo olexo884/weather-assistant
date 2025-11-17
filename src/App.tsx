@@ -6,9 +6,9 @@ import Forecast from './components/forecast/Forecast'
 import Loader from './components/loader/Loader'
 
 import { useQuery } from '@tanstack/react-query';
-import { fetchGet } from './api/weatherApi';
+import { fetchGetCurrent, fetchGetForecast } from './api/weatherApi';
 
-import type { APIWeatherCurrentData, WeatherCurrentData } from './types/weather.types';
+import type { APIWeatherForecastData, APIWeatherCurrentData, WeatherCurrentData, WeatherForecastData } from './types/weather.types';
 
 const App: React.FC = () => {
 
@@ -16,11 +16,20 @@ const App: React.FC = () => {
     isLoading: isLoadingCurrentWeather,
     isError: isErrorCurrentWeather } = useQuery<APIWeatherCurrentData, Error>({
       queryKey: ['currentWeather'],
-      queryFn: () => fetchGet("/current"),
+      queryFn: () => fetchGetCurrent("/current"),
       staleTime: 1000 * 60,
     });
 
+  const { data: dataForecastWeather,
+    isLoading: isLoadingForecastWeather,
+    isError: isErrorForecastWeather } = useQuery<APIWeatherForecastData, Error>({
+      queryKey: ['forecastWeather'],
+      queryFn: () => fetchGetForecast("/forecast"),
+      staleTime: 1000 * 60 * 60 * 12,
+    });
+
   const currentWeatherData: WeatherCurrentData | undefined = dataCurrentWeather?.data;
+  const forecastWeatherData: WeatherForecastData[] | undefined = dataForecastWeather?.data?.hourly;
 
   return (
     <>
@@ -36,10 +45,19 @@ const App: React.FC = () => {
               units={currentWeatherData?.units}
             />
           }
-          <Forecast />
+          {isLoadingForecastWeather ? <Loader /> :
+            <Forecast forecastItems={forecastWeatherData} />}
         </section>
         <section className='lower-widgets'>
-          <Widgets />
+          {isLoadingCurrentWeather ? <Loader /> :
+            <Widgets
+              humidity={currentWeatherData?.humidity}
+              pressure={currentWeatherData?.pressure}
+              windDeg={currentWeatherData?.windDeg}
+              windSpeed={currentWeatherData?.windSpeed}
+              visibility={currentWeatherData?.visibility}
+              units={currentWeatherData?.units}
+            />}
           <div>face</div>
           <div>chat</div>
         </section>

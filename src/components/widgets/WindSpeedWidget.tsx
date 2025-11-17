@@ -12,7 +12,7 @@ const WindSpeedWidget: React.FC<WindSpeedProps> = (
         title,
         mainValue,
         angle,
-        footerText }) => {
+        units }) => {
     return (
         <article className={styles.widget}>
             <div className={styles.widgetHeader}>
@@ -24,7 +24,7 @@ const WindSpeedWidget: React.FC<WindSpeedProps> = (
                 <img className={styles.widgetBG} src={DirectionsIcon} alt="directions icon" />
                 <div>
                     <h3>{mainValue}</h3>
-                    <p>{footerText}</p>
+                    <p>{units === 'metric' ? "m/sec" : "mils/h"}</p>
                 </div>
             </div>
         </article>

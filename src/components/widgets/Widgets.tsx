@@ -7,32 +7,43 @@ import PressureIcon from '../../assets/icon/widget-icon/pressure_icon.png';
 import DataWidget from './DataWidget'
 import WindSpeedWidget from './WindSpeedWidget'
 
-const Widgets: React.FC = () => {
+import type { WidgetMainProps } from "../../types/widget.types"
+
+const Widgets: React.FC<WidgetMainProps> = ({
+    humidity,
+    pressure,
+    windDeg,
+    windSpeed,
+    visibility,
+    units
+}) => {
+
     return (
         <section className={styles.widgetItems}>
             <WindSpeedWidget
                 title="WIND"
-                mainValue="9.7"
-                footerText="km/h"
-                angle={270}
+                mainValue={windSpeed}
+                angle={windDeg}
+                units={units}
             />
             <DataWidget title="HUMIDITY"
-                mainValue="90%"
-                footerText="The Dew point is 17"
-                iconSrc={HumidityIcon} />
+                mainValue={humidity}
+                iconSrc={HumidityIcon}
+                signUnits='%'
+            />
             <DataWidget
-                title="RAINFALL"
-                mainValue="1.88mm"
+                title="VISIBILITY"
+                mainValue={visibility && visibility / 100}
                 secondaryText="In last hour"
-                footerText="1.2mm expected in next hours"
                 iconSrc={PrecipitationIcon}
+                signUnits='%'
             />
             <DataWidget
                 title="PRESSURE"
-                mainValue="23.6Hg"
+                mainValue={pressure}
                 secondaryText="In last hour"
-                footerText="25.7Hg expected in next hours"
                 iconSrc={PressureIcon}
+                signUnits='hPa'
             />
         </section>
     )

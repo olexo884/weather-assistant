@@ -1,15 +1,24 @@
 export interface DataWidgetProps {
     title: string;
-    mainValue: string;
+    mainValue?: number;
     secondaryText?: string ;
-    footerText: string;
     iconSrc: string;
+    signUnits: string;
 }
 
 
 export interface WindSpeedProps {
     title: string;
-    mainValue: string;
-    footerText: string;
-    angle: number;
+    mainValue?: number;
+    angle?: number;
+    units?: 'metric' | 'imperial';
+}
+
+export interface WidgetMainProps {
+    humidity?: number;
+    pressure?: number;
+    windSpeed?: number;
+    windDeg?: number;
+    visibility?: number;
+    units?: 'metric' | 'imperial';
 }

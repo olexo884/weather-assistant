@@ -8,7 +8,7 @@
 .widgetHeader {
     align-items: center;
     display: flex;
-    gap: 14px;
+    gap: 8px;
 }
 
 .widgetHeader p {

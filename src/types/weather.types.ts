@@ -16,3 +16,18 @@ export interface APIWeatherCurrentData {
     status: 'success' | 'error';
     data: WeatherCurrentData
 }
+
+export interface WeatherForecastData {
+    temp: number;
+    windSpeed: number;
+    timestamp: number;
+    icon: string;
+    units: 'metric' | 'imperial';
+}
+
+export interface APIWeatherForecastData {
+    status: 'success' | 'error';
+    data: {
+        hourly: WeatherForecastData[];
+    }
+}

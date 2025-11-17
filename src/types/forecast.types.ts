@@ -1,12 +1,11 @@
-interface WeatherDotPayload {
-  temperature: number;
-  weatherIcon: string;
-  windSpeed: number;
-  time: string;
-}
+import type { WeatherForecastData } from "./weather.types";
 
 export interface CustomWeatherDotProps {
   cx?: number;
   cy?: number;
-  payload?: WeatherDotPayload;
+  payload?: WeatherForecastData;
+}
+
+export interface ForecastProps {
+    forecastItems?: WeatherForecastData[]; 
 }
