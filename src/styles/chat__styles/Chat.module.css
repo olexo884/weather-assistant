@@ -1,0 +1,146 @@
+.chat {
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 53vh;
+    overflow: hidden;
+}
+
+.messageInput {
+    width: 100%;
+    background-color: #F6F6F6;
+    padding: 8px 22px;
+    display: flex;
+    align-items: center;
+}
+
+.messageInputItem {
+    width: 100%;
+    display: flex;
+    position: relative;
+    height: auto;
+    background-color: #fff;
+    border: #141414 inset 1px;
+    border-radius: 15px;
+}
+
+.messageInputItem textarea {
+    width: calc(100% - 55px);
+    height: auto;
+    resize: none;
+    overflow-y: hidden;
+    padding: 3px 6px;
+    border-radius: 15px;
+    font-size: 16px;
+    color: #000;
+    border: none;
+    box-sizing: border-box;
+}
+
+.messageInputItem textarea:focus {
+    outline: none;
+}
+
+.messageInputItem textarea::-webkit-scrollbar {
+    width: 0.4em;
+}
+
+.messageInputItem textarea::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.messageInputItem textarea::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+}
+
+.messageInputItem button {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    width: 50px;
+    height: 25px;
+    background-color: #141414;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 25px;
+}
+
+.main {
+    overflow-y: scroll;
+    width: 100%;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main::-webkit-scrollbar {
+    width: 0.4em;
+}
+
+.main::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.main::-webkit-scrollbar-thumb {
+    background-color: #F6F6F6;
+}
+
+
+.singleMessageLeft,
+.singleMessageRight {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    margin-bottom: 14px;
+}
+
+.singleMessageLeft {
+    justify-content: start;
+}
+
+.singleMessageRight {
+    justify-content: end;
+    flex-direction: row-reverse;
+}
+
+.message {
+    font-size: 16px;
+    font-weight: normal;
+    padding: 8px 15px;
+    word-wrap: break-word;
+    max-width: 70%;
+}
+
+.singleMessageLeft .message{
+    color: #000;
+    background-color: #fff;
+    border-radius: 30px 30px 30px 5px;
+}
+
+.singleMessageRight .message{
+    color: #fff;
+    background-color: #141414;
+    border-radius: 30px 30px 5px 30px;
+}
+
+.time {
+    font-size: 12px;
+    font-weight: 200;
+}
+
+
+.date {
+    font-size: 14px;
+    font-weight: 200;
+    color: #000;
+    background-color: #fff;
+    padding: 5px 20px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+}

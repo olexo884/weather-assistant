@@ -9,6 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchGetCurrent, fetchGetForecast } from './api/weatherApi';
 
 import type { APIWeatherForecastData, APIWeatherCurrentData, WeatherCurrentData, WeatherForecastData } from './types/weather.types';
+import Chat from './components/chat/Chat'
 
 const App: React.FC = () => {
 
@@ -59,7 +60,7 @@ const App: React.FC = () => {
               units={currentWeatherData?.units}
             />}
           <div>face</div>
-          <div>chat</div>
+          <Chat />
         </section>
       </main>
     </>
