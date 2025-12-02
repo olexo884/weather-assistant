@@ -1,26 +1,5 @@
-.infoHeader {
-    display: flex;
-    cursor: pointer;
-    gap: 15px;
-    align-items: center;
+.main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
 }
-
-.info {
-    display: flex;
-    align-items: center;
-    gap: 45px;
-}
-
-.MainInfo h3 {
-    font-size: 32px;
-    margin: 20px 0 10px 0;
-}
-
-.MainInfo h1 {
-    font-size: 128px;
-}
-
-.MainInfo p {
-    font-size: 18px;
-}
-

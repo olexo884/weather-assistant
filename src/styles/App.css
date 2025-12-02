@@ -1,28 +1,25 @@
-* {
-    color: #fff;
-    font-family: "Inter", sans-serif;
-}
-
-.Main {
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    row-gap: 20px;
-
-    padding: 20px;
-
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100vw;
     height: 100vh;
-    background-image: url("./../assets/images/cloudy_bg.jpg");
+    background-image: url("./../assets/images/bg-img.png");
+    background-color: #0C0C0C;
+    box-shadow: inset 0 0 70px 15px #000000;
+    overflow: hidden;
 }
 
-.upper-widgets {
+.main .content {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    column-gap: 25px;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+    width: 1250px;
+    height: 824px;
 }
 
-.lower-widgets {
+.main .left-widgets {
     display: grid;
-    grid-template-columns: 1fr 1fr 2fr;
-    column-gap: 25px;
+    grid-template-rows: 2fr 1fr;
+    gap: 10px;
 }

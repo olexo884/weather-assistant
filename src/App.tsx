@@ -1,7 +1,7 @@
 import './styles/App.css'
-import Widgets from './components/widgets/Widgets'
 import MainInfo from './components/main-info/MainInfo'
 import Forecast from './components/forecast/Forecast'
+import Chat from './components/chat/Chat'
 
 import Loader from './components/loader/Loader'
 
@@ -9,7 +9,6 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchGetCurrent, fetchGetForecast } from './api/weatherApi';
 
 import type { APIWeatherForecastData, APIWeatherCurrentData, WeatherCurrentData, WeatherForecastData } from './types/weather.types';
-import Chat from './components/chat/Chat'
 
 const App: React.FC = () => {
 
@@ -34,34 +33,20 @@ const App: React.FC = () => {
 
   return (
     <>
-      <main className='Main'>
-        <section className='upper-widgets'>
-          {isLoadingCurrentWeather ? <Loader /> :
-            <MainInfo
-              temperature={currentWeatherData?.temperature}
-              exactDate={currentWeatherData?.timestamp}
-              weatherConditions={currentWeatherData?.condition}
-              location={currentWeatherData?.location}
-              weatherIconCode={currentWeatherData?.icon}
-              units={currentWeatherData?.units}
-            />
-          }
-          {isLoadingForecastWeather ? <Loader /> :
-            <Forecast forecastItems={forecastWeatherData} />}
-        </section>
-        <section className='lower-widgets'>
-          {isLoadingCurrentWeather ? <Loader /> :
-            <Widgets
-              humidity={currentWeatherData?.humidity}
-              pressure={currentWeatherData?.pressure}
-              windDeg={currentWeatherData?.windDeg}
-              windSpeed={currentWeatherData?.windSpeed}
-              visibility={currentWeatherData?.visibility}
-              units={currentWeatherData?.units}
-            />}
-          <div>face</div>
-          <Chat />
-        </section>
+      <main className='main'>
+        <article className='content'>
+          <section className='left-widgets'>
+            {//isLoadingCurrentWeather ? <Loader /> :
+              <MainInfo />
+            }
+            {isLoadingForecastWeather ? <Loader /> :
+              <Forecast forecastItems={forecastWeatherData} />
+            }
+          </section>
+          <section className='right-widgets'>
+            <Chat />
+          </section>
+        </article>
       </main>
     </>
   )
