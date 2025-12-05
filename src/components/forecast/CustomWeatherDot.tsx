@@ -3,6 +3,8 @@ import React, { useMemo } from 'react';
 import type { CustomWeatherDotProps } from "../../types/forecast.types"
 import { WeatherIconMap } from '../../types/weatherMap.types';
 
+import styles from "../../styles/forecast__styles/Forecast.module.css";
+
 const CustomWeatherDot: React.FC<CustomWeatherDotProps> = ({
   cx, cy, payload
 }) => {
@@ -19,14 +21,16 @@ const CustomWeatherDot: React.FC<CustomWeatherDotProps> = ({
 
   return (
     <>
-      <image x={cx - 12} y={cy + 12} href={WeatherIconMap[icon.slice(0, 2)]} height="24" width="24" />
+      <image  x={cx - 12} y={cy + 12} href={WeatherIconMap[icon.slice(0, 2)]} height="24" width="24" />
 
       <text
+        className={styles.forecastTemp}
         x={cx}
         y={cy - 12}
+        fontSize={20}
         textAnchor="middle"
         fill="#fff">
-        {temp}{units === 'metric' ? "°C" : "°F"}
+        {temp > 0 && "+"}{temp}{units === 'metric' ? "°C" : "°F"}
       </text>
 
       <text
@@ -34,12 +38,14 @@ const CustomWeatherDot: React.FC<CustomWeatherDotProps> = ({
         y={cy + 50}
         textAnchor="middle"
         fill="#fff"
-        fontSize={10}>
+        fontSize={12}
+        className={styles.forecastbottomData}
+        >
         <tspan >
           {windSpeed}{units === 'metric' ? "m/sec" : "mils/h"}
         </tspan>
         <tspan x={cx} dy="14">
-          {formattedDateTime && formattedDateTime?.getHours() < 10 ? "0"+ formattedDateTime?.getHours() : formattedDateTime?.getHours()}:00
+          {formattedDateTime && formattedDateTime?.getHours() < 10 ? "0" + formattedDateTime?.getHours() : formattedDateTime?.getHours()}:00
         </tspan>
       </text>
 

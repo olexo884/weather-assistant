@@ -1,21 +1,56 @@
 .forecast {
-    background-color: rgba(0, 0, 0, 0.6);
-    border-radius: 18px;
-    padding: 35px 65px;
+    background-color: #121212;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
 }
 
-.forecastHeader {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+.forecastTitle {
+    text-align: center;
+    font-size: 32px;
+    font-weight: normal;
+    color: transparent;
+    -webkit-text-stroke: 1px #ffffff;
+    
+    transition: all 0.3s ease-in-out;
+}
+
+.forecast hr {
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    border-color: #3F3F3F;
 }
 
 .graph {
     width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid #C7C7C7;
+    box-shadow: 3px 3px 7px 0px rgba(0, 0, 0, 0.6);
+    transition: all 0.3s ease-in-out;
+}
+
+.forecast:hover .graph {
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.02);
+}
+
+.forecast:hover .forecastTitle {
+    color: #ffffff;
+    -webkit-text-stroke:transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+.forecast:hover .forecastTemp{
+    font-size: 22px;
+    transition: all 0.3s ease-in-out;
+}
+
+.forecast:hover .forecastbottomData {
+    font-size: 14px;
+    transition: all 0.3s ease-in-out;
 }
 
 .chart :focus,

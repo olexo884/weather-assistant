@@ -12,10 +12,10 @@
 
 .main .content {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 480px;;
     gap: 10px;
     width: 1250px;
-    height: 824px;
+    transform: scale(1);
 }
 
 .main .left-widgets {

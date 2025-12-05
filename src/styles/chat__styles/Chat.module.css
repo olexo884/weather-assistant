@@ -1,81 +1,134 @@
 .chat {
-    background-color: rgba(0, 0, 0, 0.6);
-    border-radius: 18px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 53vh;
-    overflow: hidden;
+    background-color: #121212;
+    border-radius: 10px;
+    height: fit-content;
+    display: grid;
+    grid-template-rows: auto 1fr auto ;
+    padding: 20px;
+    height: 886px;
+    gap: 20px;
 }
 
-.messageInput {
-    width: 100%;
-    background-color: #F6F6F6;
-    padding: 8px 22px;
-    display: flex;
-    align-items: center;
-}
-
-.messageInputItem {
-    width: 100%;
-    display: flex;
-    position: relative;
-    height: auto;
-    background-color: #fff;
-    border: #141414 inset 1px;
-    border-radius: 15px;
-}
-
-.messageInputItem textarea {
-    width: calc(100% - 55px);
-    height: auto;
-    resize: none;
-    overflow-y: hidden;
-    padding: 3px 6px;
-    border-radius: 15px;
-    font-size: 16px;
-    color: #000;
-    border: none;
-    box-sizing: border-box;
-}
-
-.messageInputItem textarea:focus {
-    outline: none;
-}
-
-.messageInputItem textarea::-webkit-scrollbar {
-    width: 0.4em;
-}
-
-.messageInputItem textarea::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-.messageInputItem textarea::-webkit-scrollbar-thumb {
-    background-color: darkgrey;
-}
-
-.messageInputItem button {
-    position: absolute;
-    right: 0px;
-    bottom: 0px;
-    width: 50px;
-    height: 25px;
-    background-color: #141414;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    border-radius: 25px;
+.chibi {
+    width: 250px;
+    height: 250px;
 }
 
 .main {
     overflow-y: scroll;
     width: 100%;
-    padding: 22px;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.contentMessage{
+    cursor: pointer;
+    width: fit-content;
+    padding: 20px;
+    position: relative;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.contentMessage:hover {
+    transition: all 0.3s ease-in-out;
+    transform: scale(0.95);
+}
+
+.message {
+    font-size: 32px;
+    font-weight: 400;
+    word-break: break-all;
+    color: #121212;
+}
+
+.time {
+    font-size: 24px;
+    color: #8C8C8C;
+    text-align-last: right;
+}
+
+.singleMessageLeft {
+    display: flex;
+    width: 100%;
+    justify-content: start;
+}
+
+.singleMessageRight {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+}
+
+.singleMessageRight .contentMessage{ 
+    background-color: #070707;
+}
+
+.singleMessageRight .message {
+    color: #fff;
+}
+
+.date {
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+.messageInput::before {
+    content: " ";
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: #fff;
+    position: absolute;
+    top: -20px;
+}
+
+.messageInput {
+    display: flex;
+    align-items: end;
+    position: relative;
+    gap: 20px;
+}
+
+.messageInput textarea {
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+    font-size: 16px;
+    color: #fff;
+    resize: none;
+}
+
+.sendButton {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    height: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.sendButton:hover {
+    transform: rotate(15deg);
+    transition: all 0.3s ease-in-out;
+}
+
+.messageInput textarea:focus {
+    outline: none;
+}
+
+.messageInput textarea::-webkit-scrollbar {
+    width: 0.4em;
+}
+
+.messageInput textarea::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.messageInput textarea::-webkit-scrollbar-thumb {
+    background-color: #F6F6F6;
 }
 
 .main::-webkit-scrollbar {
@@ -88,59 +141,4 @@
 
 .main::-webkit-scrollbar-thumb {
     background-color: #F6F6F6;
-}
-
-
-.singleMessageLeft,
-.singleMessageRight {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    width: 100%;
-    margin-bottom: 14px;
-}
-
-.singleMessageLeft {
-    justify-content: start;
-}
-
-.singleMessageRight {
-    justify-content: end;
-    flex-direction: row-reverse;
-}
-
-.message {
-    font-size: 16px;
-    font-weight: normal;
-    padding: 8px 15px;
-    word-wrap: break-word;
-    max-width: 70%;
-}
-
-.singleMessageLeft .message{
-    color: #000;
-    background-color: #fff;
-    border-radius: 30px 30px 30px 5px;
-}
-
-.singleMessageRight .message{
-    color: #fff;
-    background-color: #141414;
-    border-radius: 30px 30px 5px 30px;
-}
-
-.time {
-    font-size: 12px;
-    font-weight: 200;
-}
-
-
-.date {
-    font-size: 14px;
-    font-weight: 200;
-    color: #000;
-    background-color: #fff;
-    padding: 5px 20px;
-    border-radius: 20px;
-    margin-bottom: 14px;
 }

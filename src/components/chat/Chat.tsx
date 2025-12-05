@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useState, type ChangeEvent } from 'react';
 
 import styles from "../../styles/chat__styles/Chat.module.css";
+
+import ChibiIcon from '../../assets/icon/chat-icon/chibi.jpg';
 import SendIcon from '../../assets/icon/chat-icon/send.svg';
 
 import ChatMessage from './ChatMessage';
@@ -23,17 +25,17 @@ const Chat: React.FC = () => {
     const handleChatInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => { setChatInput(event.target.value); };
 
     const messagesToDisplay = [
-        { id: '1', role: "user", content: 'Нове повідомлення', createdAt: 1702483200 + 86400 * 2, /* 2 дні пізніше */ },
-        { id: '2', role: "ai", content: 'Відповідь ШІ', createdAt: 1702483200 + 86900 * 2 },
-        { id: '3', role: "user", content: 'Повідомлення вчора', createdAt: 1702483200 + 86400 },
-        { id: '4', role: "ai", content: 'Відповідь вчора', createdAt: 1702483200 + 86400 },
-        { id: '5', role: "user", content: 'Старе повідомлення', createdAt: 1702483200 },
+        { id: '1', role: "user", content: "Hi chibi!", createdAt: 1702483200 + 86900 },
+        { id: '2', role: "ai", content: "Hello! How may I help you today?", createdAt: 1702483200 + 86400}
     ];
 
     return (
         <article className={styles.chat}>
+            <div className={styles.chibi}>
+                <img src={ChibiIcon} alt="chibi icon" />
+            </div>
             <div className={styles.main}>
-                {messagesToDisplay.reverse().map((message, index) => {
+                {messagesToDisplay.map((message, index) => {
                     const prevMessage = messagesToDisplay[index - 1];
                     const prevTimestamp = prevMessage ? prevMessage.createdAt : undefined;
 
@@ -52,17 +54,15 @@ const Chat: React.FC = () => {
                 })}
             </div>
             <div className={styles.messageInput}>
-                <div className={styles.messageInputItem}>
-                    <textarea
-                        ref={textareaRef}
-                        value={chatInput}
-                        onChange={handleChatInputChange}
-                        maxLength={600}
-                        id="chat-textarea"
-                        rows={1} />
-                    <button className={styles.sendBtn}><img src={SendIcon} alt="send" /></button>
-                </div>
-
+                <textarea
+                    placeholder='Enter a message to the chibi...'
+                    ref={textareaRef}
+                    value={chatInput}
+                    onChange={handleChatInputChange}
+                    maxLength={600}
+                    id="chat-textarea"
+                    rows={1} />
+                <button className={styles.sendButton}><img src={SendIcon} alt="send" /></button>
             </div>
         </article>
     )
