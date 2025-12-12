@@ -1,4 +1,18 @@
-import type { WeatherForecastData } from "./weather.types";
+export interface WeatherForecastData {
+    temp: number;
+    windSpeed: number;
+    timestamp: number;
+    timezone: number;
+    icon: string;
+    units: 'metric' | 'imperial';
+}
+
+export interface APIWeatherForecastData {
+    status: 'success' | 'error';
+    data: {
+        hourly: WeatherForecastData[];
+    }
+}
 
 export interface CustomWeatherDotProps {
   cx?: number;
@@ -7,5 +21,5 @@ export interface CustomWeatherDotProps {
 }
 
 export interface ForecastProps {
-    forecastItems?: WeatherForecastData[]; 
+  forecastItems: WeatherForecastData[];
 }

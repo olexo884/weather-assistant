@@ -1,15 +1,11 @@
 import React from 'react';
 import styles from "../../styles/chat__styles/Chat.module.css";
+import { formatTimeSeparator } from '../../utils/dateUtils';
+import type { MessagesData } from '../../types/chat.types';
 
-export interface MessageProps {
-    id: string;
-    role: "user" | "ai";
-    content: string;
-    createdAt: number;
-}
 
-const ChatMessage: React.FC<MessageProps> = ({ role, content, createdAt }) => {
-    const timeString = new Date(createdAt * 1000).toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
+const ChatMessage: React.FC<MessagesData> = ({ role, content, createdAt }) => {
+    const timeString = formatTimeSeparator(createdAt);
     const containerClass = role === 'user' ?  styles.singleMessageLeft : styles.singleMessageRight;
 
     return (

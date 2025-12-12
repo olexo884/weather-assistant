@@ -1,30 +1,40 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import styles from "../../styles/main-info__styles/MainInfo.module.css";
 
-import type { MainInfoProps } from "../../types/mainInfo.types"
-import { WeatherDayMap, WeatherIconMap, WeatherMonthMap } from '../../types/weatherMap.types';
+import type { WeatherCurrentData } from "../../types/weather.types"
 import MainWeather from './main-weather/MainWeather';
 import MainWeatherWidgets from './main-weatherWidgets/MainWeatherWidgets';
 
-const MainInfo: React.FC<MainInfoProps> = ({
-    temperature,
-    exactDate,
-    weatherConditions,
-    location,
-    weatherIconCode,
-    units }
-) => {
+const MainInfo: React.FC<WeatherCurrentData> = (data: WeatherCurrentData) => {
+    if (!data) {
+        return null;
+    }
 
-    const formattedDateTime = useMemo(() => {
-        if (!exactDate) return null;
-        return new Date(exactDate * 1000);
-    }, [exactDate]);
+    const { location, times, current, units } = data;
 
     return (
         <article className={styles.main}>
-            <MainWeather />
-            <MainWeatherWidgets/>
+            <MainWeather
+                location={location}
+                timestamp={times.timestamp}
+                timezone={times.timezone}
+                temperature={current.temperature}
+                icon={current.icon}
+                condition={current.condition}
+                units={units}
+            />
+            <MainWeatherWidgets
+                humidity={current.humidity}
+                pressure={current.pressure}
+                feelsLike={current.feelsLike}
+                windSpeed={current.windSpeed}
+                windDeg={current.windDeg}
+                sunrise={times.sunrise}
+                sunset={times.sunset}
+                timezone={times.timezone}
+                units={units}
+            />
         </article>
     )
 }

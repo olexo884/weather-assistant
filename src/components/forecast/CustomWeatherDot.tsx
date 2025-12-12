@@ -1,9 +1,10 @@
-import React, { useMemo } from 'react';
+import React, { useRef, useEffect } from 'react';
 
 import type { CustomWeatherDotProps } from "../../types/forecast.types"
 import { WeatherIconMap } from '../../types/weatherMap.types';
 
 import styles from "../../styles/forecast__styles/Forecast.module.css";
+import { formatTimeSeparator } from '../../utils/dateUtils';
 
 const CustomWeatherDot: React.FC<CustomWeatherDotProps> = ({
   cx, cy, payload
@@ -12,16 +13,17 @@ const CustomWeatherDot: React.FC<CustomWeatherDotProps> = ({
     return null;
   }
 
-  const { temp, icon, windSpeed, timestamp, units } = payload;
+  const { temp, icon, windSpeed, timestamp, units, timezone } = payload;
 
-  const formattedDateTime = useMemo(() => {
-    if (!timestamp) return null;
-    return new Date(timestamp * 1000);
-  }, [timestamp]);
+  const timeRef = useRef<string>('--:--');
+
+  useEffect(() => {
+    timeRef.current = formatTimeSeparator(timestamp, timezone);
+  }, [timestamp, timezone]);
 
   return (
     <>
-      <image  x={cx - 12} y={cy + 12} href={WeatherIconMap[icon.slice(0, 2)]} height="24" width="24" />
+      <image x={cx - 12} y={cy + 12} href={WeatherIconMap[icon.slice(0, 2)]} height="24" width="24" />
 
       <text
         className={styles.forecastTemp}
@@ -30,7 +32,7 @@ const CustomWeatherDot: React.FC<CustomWeatherDotProps> = ({
         fontSize={20}
         textAnchor="middle"
         fill="#fff">
-        {temp > 0 && "+"}{temp}{units === 'metric' ? "°C" : "°F"}
+        {temp > 0 ? "+" : ""}{temp}{units === 'metric' ? "°C" : "°F"}
       </text>
 
       <text
@@ -40,15 +42,14 @@ const CustomWeatherDot: React.FC<CustomWeatherDotProps> = ({
         fill="#fff"
         fontSize={12}
         className={styles.forecastbottomData}
-        >
+      >
         <tspan >
           {windSpeed}{units === 'metric' ? "m/sec" : "mils/h"}
         </tspan>
         <tspan x={cx} dy="14">
-          {formattedDateTime && formattedDateTime?.getHours() < 10 ? "0" + formattedDateTime?.getHours() : formattedDateTime?.getHours()}:00
+          {timeRef.current}
         </tspan>
       </text>
-
     </>
   );
 };

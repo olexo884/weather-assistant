@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, type ChangeEvent } from 'react';
+import React, { useRef, useEffect, useState, type ChangeEvent, useLayoutEffect } from 'react';
 
 import styles from "../../styles/chat__styles/Chat.module.css";
 
@@ -8,10 +8,19 @@ import SendIcon from '../../assets/icon/chat-icon/send.svg';
 import ChatMessage from './ChatMessage';
 import { formatDateSeparator, shouldShowDateSeparator } from '../../utils/dateUtils.ts';
 
-const Chat: React.FC = () => {
+import type { ChatProps } from '../../types/chat.types.ts';
+import { fetchSendMessage } from '../../api/chatApi.ts';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import Loader from '../loader/Loader.tsx';
+
+const Chat: React.FC<ChatProps> = ({ messages, nextCursor }) => {
+
     const [chatInput, setChatInput] = useState("");
+    const handleChatInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => { setChatInput(event.target.value); };
 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    const scrollEndRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         if (textareaRef.current) {
@@ -22,27 +31,49 @@ const Chat: React.FC = () => {
         }
     }, [chatInput]);
 
-    const handleChatInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => { setChatInput(event.target.value); };
+    const scrollToBottom = () => {
+        scrollEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
 
-    const messagesToDisplay = [
-        { id: '1', role: "user", content: "Hi chibi!", createdAt: 1702483200 + 86900 },
-        { id: '2', role: "ai", content: "Hello! How may I help you today?", createdAt: 1702483200 + 86400}
-    ];
+    useLayoutEffect(() => {
+        requestAnimationFrame(() => scrollToBottom());
+    }, [messages]);
+
+    const queryClient = useQueryClient();
+    const sendMutation = useMutation({
+        mutationFn: (content: string) =>
+            fetchSendMessage("/send", content),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["messages"] });
+            setChatInput("");
+        },
+        onError: (error: Error) => {
+            console.error("Send error:", error.message);
+        },
+    });
+
+    const handleSend = () => {
+        if (sendMutation.isPending) return;
+        const text = chatInput.trim();
+        if (!text) return;
+        sendMutation.mutate(text);
+    };
 
     return (
         <article className={styles.chat}>
             <div className={styles.chibi}>
                 <img src={ChibiIcon} alt="chibi icon" />
+                {sendMutation.isPending && <Loader />}
             </div>
-            <div className={styles.main}>
-                {messagesToDisplay.map((message, index) => {
-                    const prevMessage = messagesToDisplay[index - 1];
+            <div className={styles.main} >
+                {messages.length ? [...messages].reverse().map((message, index) => {
+                    const prevMessage = messages[index - 1];
                     const prevTimestamp = prevMessage ? prevMessage.createdAt : undefined;
 
                     const showSeparator = shouldShowDateSeparator(message.createdAt, prevTimestamp);
 
                     return (
-                        <React.Fragment key={message.id}>
+                        <React.Fragment key={message._id}>
                             {showSeparator && (
                                 <h4 className={styles.date}>{formatDateSeparator(message.createdAt)}</h4>
                             )}
@@ -51,7 +82,8 @@ const Chat: React.FC = () => {
                             />
                         </React.Fragment>
                     );
-                })}
+                }) : <h1>No messages found</h1>}
+                <div ref={scrollEndRef}></div>
             </div>
             <div className={styles.messageInput}>
                 <textarea
@@ -62,7 +94,11 @@ const Chat: React.FC = () => {
                     maxLength={600}
                     id="chat-textarea"
                     rows={1} />
-                <button className={styles.sendButton}><img src={SendIcon} alt="send" /></button>
+                <button className={styles.sendButton}
+                    onClick={handleSend}
+                    disabled={sendMutation.isPending}>
+                    <img src={SendIcon} alt="send" />
+                </button>
             </div>
         </article>
     )

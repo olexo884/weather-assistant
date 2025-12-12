@@ -1,8 +1,8 @@
-export const shouldShowDateSeparator = (currentTimestamp: number, prevTimestamp?: number): boolean => {
-    if (!prevTimestamp) return true; 
+export const shouldShowDateSeparator = (currentTimestamp: string, prevTimestamp?: string): boolean => {
+    if (!prevTimestamp) return true;
 
-    const currentDate = new Date(currentTimestamp * 1000);
-    const previousDate = new Date(prevTimestamp * 1000);
+    const currentDate = new Date(currentTimestamp);
+    const previousDate = new Date(prevTimestamp);
 
     currentDate.setHours(0, 0, 0, 0);
     previousDate.setHours(0, 0, 0, 0);
@@ -10,10 +10,32 @@ export const shouldShowDateSeparator = (currentTimestamp: number, prevTimestamp?
     return currentDate.getTime() !== previousDate.getTime();
 };
 
-export const formatDateSeparator = (timestamp: number): string => {
-    return new Date(timestamp * 1000).toLocaleDateString('uk-UA', { 
-        year: '2-digit', 
-        month: '2-digit', 
-        day: '2-digit' 
-    }); 
+export const formatDateSeparator = (
+    timestamp: number | string,
+    timezone = 0,
+): string => {
+    const date =
+        typeof timestamp === "string"
+            ? new Date(timestamp)
+            : new Date((timestamp + timezone) * 1000);
+
+    return date.toLocaleDateString("uk-UA", {
+        year: "2-digit",
+        month: "2-digit",
+        day: "2-digit",
+        ...(typeof timestamp === "number" && { timeZone: "UTC" }),
+    });
 };
+
+export const formatTimeSeparator = (timestamp: number | string, timezone: number = 0): string => {
+    typeof timestamp === "string"
+        ? timestamp
+        : (timestamp + timezone) * 1000;
+
+    return new Date(timestamp).toLocaleTimeString('uk-UA', {
+        hour: '2-digit',
+        minute: '2-digit',
+        ...(typeof timestamp === "number" && { timeZone: "UTC" }),
+    });
+};
+

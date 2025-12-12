@@ -9,45 +9,57 @@ import TemperatureIcon from '../../../assets/icon/widget-icon/temperature.svg';
 import styles from "../../../styles/main-info__styles/MainWeatherWidgets.module.css";
 import Widget from './widgets/Widget';
 import WindWidget from './widgets/WindWidget';
+import type { WidgetsCurrentData } from '../../../types/weather.types';
+import { formatTimeSeparator } from '../../../utils/dateUtils';
 
-const MainWeatherWidgets: React.FC = () => {
+const MainWeatherWidgets: React.FC<WidgetsCurrentData> = ({
+    humidity,
+    pressure,
+    feelsLike,
+    windSpeed,
+    windDeg,
+    sunrise,
+    sunset,
+    timezone,
+    units
+}) => {
     return (
         <article className={styles.main}>
             <div className={styles.header}>
                 <Widget
                     title="FEELS LIKE"
-                    mainValue={"+32.5"}
+                    mainValue={`${feelsLike > 0 ? "+" : ""}${feelsLike}`}
                     iconSrc={TemperatureIcon}
-                    signUnits={"°C"}
+                    signUnits={units === 'metric' ? "°C" : "°F"}
                 />
                 <WindWidget
-                    mainValue={9.7}
-                    angle={0}
-                    units='metric'
+                    mainValue={windSpeed}
+                    angle={windDeg}
+                    units={units}
                 />
             </div>
             <div className={styles.bottom}>
                 <Widget
                     title="HUMIDITY"
-                    mainValue={"82"}
+                    mainValue={humidity.toString()}
                     iconSrc={HumidityIcon}
                     signUnits={"%"}
                 />
                 <Widget
                     title="SUNSET"
-                    mainValue={"08:30"}
+                    mainValue={formatTimeSeparator(sunset, timezone)}
                     iconSrc={SunsetIcon}
                     signUnits={"PM"}
                 />
                 <Widget
                     title="PRESSURE"
-                    mainValue={"1002"}
+                    mainValue={pressure.toString()}
                     iconSrc={PressuretIcon}
                     signUnits={"HPA"}
                 />
                 <Widget
                     title="SUNRISE"
-                    mainValue={"04:21"}
+                    mainValue={formatTimeSeparator(sunrise, timezone)}
                     iconSrc={SunriseIcon}
                     signUnits={"AM"}
                 />

@@ -4,41 +4,42 @@ import LocationIcon from '../../../assets/icon/mainInfo-icon/location.svg';
 
 import styles from "../../../styles/main-info__styles/MainWeather.module.css";
 import { WeatherDayMap, WeatherIconMap, WeatherMonthMap } from '../../../types/weatherMap.types';
+import type { MainCurrentData } from '../../../types/weather.types';
 
-const MainWeather: React.FC = () => {
-    const weatherIconCode = "01";
-    const weatherConditions = "overcast clouds";
-    const temperature = 26;
-    const units = "metric";
-    const formattedDateTime = new Date();
-    const location = "Vinnytsia, UA";
+import LiveApiTime from '../../time/LiveApiTime';
 
-    const timeString = formattedDateTime.toLocaleTimeString('uk-UA', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-    });
+const MainWeather: React.FC<MainCurrentData> = ({
+    location,
+    timestamp,
+    timezone,
+    temperature,
+    icon,
+    condition,
+    units
+}) => {
+    const currentDateTime = new Date((timestamp + timezone) * 1000);
+    
     return (
         <article className={styles.main}>
-            <img className={styles.weatherIcon} src={weatherIconCode && WeatherIconMap[weatherIconCode.slice(0, 2)]} alt={weatherConditions} />
+            <img className={styles.weatherIcon} src={icon && WeatherIconMap[icon.slice(0, 2)]} alt={condition} />
             <div>
                 <div className={styles.header}>
                     <h1>{temperature > 0 ? "+" + temperature : temperature}{units === 'metric' ? "°C" : "°F"}</h1>
-                    <h3>{weatherConditions.toUpperCase()}</h3>
+                    <h3>{condition.toUpperCase()}</h3>
                 </div>
                 <hr />
                 <div className={styles.bottomInfo}>
                     <div className={styles.location}>
                         <img src={LocationIcon} alt="loaction icon" />
-                        <p>{location}</p>
+                        <p>{location.name} <br /> {location.country}</p>
                     </div>
                     <div className={styles.date}>
-                        {formattedDateTime && (
+                        {timestamp && timezone && (
                             <div>
                                 <p>
-                                    {WeatherDayMap[formattedDateTime.getDay()]} | {formattedDateTime.getDate()} {WeatherMonthMap[formattedDateTime.getMonth()]} {formattedDateTime.getFullYear()}
+                                    {WeatherDayMap[currentDateTime.getDay()]} | {currentDateTime.getDate()} {WeatherMonthMap[currentDateTime.getMonth()]} {currentDateTime.getFullYear()}
                                 </p>
-                                <h3>{timeString}</h3>
+                                <h3><LiveApiTime dt={timestamp} timezone={timezone} /></h3>
                             </div>
                         )
                         }

@@ -1,14 +1,41 @@
-import axios from 'axios';
-import type { APIWeatherCurrentData, APIWeatherForecastData } from '../types/weather.types';
+import axios, {AxiosError} from 'axios';
+import type { APIWeatherCurrentData } from '../types/weather.types';
+import type { APIWeatherForecastData } from '../types/forecast.types';
 
 const API_URL = "http://localhost:3001/api/v1/weather"
 
-export const fetchGetCurrent = async (urlSuffix: string): Promise<APIWeatherCurrentData> => {
-    const response = await axios.get(API_URL + urlSuffix);
+export const fetchGetCurrent = async (
+  urlSuffix: string
+): Promise<APIWeatherCurrentData> => {
+  try {
+    const response = await axios.get<APIWeatherCurrentData>(
+      API_URL + urlSuffix
+    );
     return response.data;
+  } catch (e) {
+    const error = e as AxiosError<{ message?: string }>;
+    throw new Error(
+      error.response?.data?.message ??
+      error.message ??
+      "Failed to fetch current weather"
+    );
+  }
 };
 
-export const fetchGetForecast = async (urlSuffix: string): Promise<APIWeatherForecastData> => {
-    const response = await axios.get(API_URL + urlSuffix);
+export const fetchGetForecast = async (
+  urlSuffix: string
+): Promise<APIWeatherForecastData> => {
+  try {
+    const response = await axios.get<APIWeatherForecastData>(
+      API_URL + urlSuffix
+    );
     return response.data;
+  } catch (e) {
+    const error = e as AxiosError<{ message?: string }>;
+    throw new Error(
+      error.response?.data?.message ??
+      error.message ??
+      "Failed to fetch weather forecast"
+    );
+  }
 };
